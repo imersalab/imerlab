@@ -1,7 +1,7 @@
 const statusEl = document.getElementById('statsStatus');
-const visitasEl = document.getElementById('statVisitas');
-const unicosEl = document.getElementById('statUnicos');
+const visitantesEl = document.getElementById('statVisitas');
 const paginasEl = document.getElementById('statPaginas');
+const mediaEl = document.getElementById('statMedia');
 const atualizadoEl = document.getElementById('statAtualizado');
 const setupBox = document.getElementById('statsSetup');
 const diagnosticBox = document.getElementById('statsDiagnostic');
@@ -13,15 +13,22 @@ function formatNumber(value) {
   return Number(value || 0).toLocaleString('pt-BR');
 }
 
+function formatDecimal(value) {
+  return Number(value || 0).toLocaleString('pt-BR', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+}
+
 function setStatus(text, type = 'loading') {
   statusEl.textContent = text;
   statusEl.className = `stats-status ${type}`;
 }
 
 function resetNumbers() {
-  visitasEl.textContent = '—';
-  unicosEl.textContent = '—';
+  visitantesEl.textContent = '—';
   paginasEl.textContent = '—';
+  mediaEl.textContent = '—';
 }
 
 function showDiagnostic(title, detail) {
@@ -31,7 +38,7 @@ function showDiagnostic(title, detail) {
 }
 
 async function loadStats() {
-  setStatus('Atualizando dados…', 'loading');
+  setStatus('Atualizando dados da Vercel…', 'loading');
   refreshBtn.disabled = true;
   setupBox.hidden = true;
   diagnosticBox.hidden = true;
@@ -43,17 +50,11 @@ async function loadStats() {
     if (!contentType.includes('application/json')) {
       resetNumbers();
       atualizadoEl.textContent = 'API indisponível';
-
-      if (response.status === 404) {
-        setStatus('A rota /api/visitas não foi encontrada.', 'error');
-        showDiagnostic(
-          'A função da Vercel não está sendo executada',
-          'Isso normalmente acontece quando o site está aberto pelo Live Server/arquivo local, ou quando a pasta api não está na raiz publicada na Vercel. Para testar localmente, use “vercel dev”. Para o site publicado, confirme que api/visitas.js está na raiz do projeto implantado.'
-        );
-      } else {
-        setStatus(`A API retornou uma resposta inválida (${response.status}).`, 'error');
-        showDiagnostic('Resposta inesperada da API', 'A página recebeu HTML ou outro conteúdo no lugar de JSON. Abra /api/visitas diretamente para verificar o que está sendo retornado.');
-      }
+      setStatus('A função /api/visitas não retornou JSON.', 'error');
+      showDiagnostic(
+        'Função serverless indisponível',
+        'Confirme que a pasta api está na raiz publicada na Vercel e que api/visitas.js foi incluído no deployment.'
+      );
       return;
     }
 
@@ -63,12 +64,17 @@ async function loadStats() {
       resetNumbers();
       setupBox.hidden = false;
       atualizadoEl.textContent = 'Aguardando configuração';
-      setStatus('Contador ainda não configurado na Vercel.', 'warning');
+      setStatus('Vercel Web Analytics ainda precisa ser configurado.', 'warning');
+
       const missing = [];
-      if (!data.config?.workspaceConfigured) missing.push('COUNTERAPI_WORKSPACE');
-      if (!data.config?.tokenConfigured) missing.push('COUNTERAPI_TOKEN');
+      if (!data.config?.tokenConfigured) missing.push('VERCEL_ANALYTICS_TOKEN');
+      if (!data.config?.projectIdConfigured) missing.push('VERCEL_PROJECT_ID');
+
       if (missing.length) {
-        showDiagnostic('Configuração incompleta', `Falta configurar: ${missing.join(' e ')}. Depois de salvar as variáveis, faça um novo deploy.`);
+        showDiagnostic(
+          'Configuração incompleta',
+          `Falta configurar ou disponibilizar: ${missing.join(' e ')}. Depois faça um novo deploy.`
+        );
       }
       return;
     }
@@ -76,25 +82,28 @@ async function loadStats() {
     if (!response.ok || !data.ok) {
       resetNumbers();
       atualizadoEl.textContent = 'Falha na consulta';
-      const message = data.error || `Erro HTTP ${response.status}`;
-      const detail = data.detail || 'Abra /api/visitas diretamente para consultar o diagnóstico.';
-      setStatus(message, 'error');
-      showDiagnostic('Diagnóstico do contador', detail);
+      setStatus(data.error || `Erro HTTP ${response.status}`, 'error');
+
+      let detail = data.detail || 'Abra a API de estatísticas para consultar o diagnóstico.';
+      if (data.teamRequired) {
+        detail += ' Este projeto parece exigir o escopo do time. Adicione VERCEL_TEAM_ID nas variáveis de ambiente.';
+      }
+      showDiagnostic('Diagnóstico do Vercel Analytics', detail);
       return;
     }
 
-    visitasEl.textContent = formatNumber(data.visitas);
-    unicosEl.textContent = formatNumber(data.visitantesUnicos);
+    visitantesEl.textContent = formatNumber(data.visitantes);
     paginasEl.textContent = formatNumber(data.paginasVisualizadas);
+    mediaEl.textContent = formatDecimal(data.paginasPorVisitante);
     atualizadoEl.textContent = new Date(data.atualizadoEm || Date.now()).toLocaleString('pt-BR');
-    setStatus('Contador conectado e funcionando.', 'success');
+    setStatus('Dados carregados do Vercel Web Analytics.', 'success');
   } catch (error) {
     resetNumbers();
     atualizadoEl.textContent = 'Sem conexão';
     setStatus('Não foi possível acessar a função de estatísticas.', 'error');
     showDiagnostic(
-      'Verifique onde o site está sendo executado',
-      'Se estiver testando pelo Live Server ou abrindo o HTML diretamente, /api/visitas não funciona porque ela é uma função serverless da Vercel. Publique o projeto na Vercel ou execute localmente com “vercel dev”.'
+      'Falha de conexão',
+      'A página não conseguiu acessar /api/visitas. Verifique o deployment na Vercel e tente novamente.'
     );
   } finally {
     refreshBtn.disabled = false;
