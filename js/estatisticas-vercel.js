@@ -72,30 +72,35 @@ function renderCountries(rows = []) {
   countriesEl.innerHTML = '';
 
   if (!rows.length) {
-    countriesEl.innerHTML = '<div class="stats-country-empty">Nenhuma localidade registrada neste período.</div>';
+    countriesEl.innerHTML = '<div class="stats-country-empty">Nenhum país registrado neste período.</div>';
     return;
   }
 
-  const maxVisitors = Math.max(...rows.map(row => Number(row.visitors || 0)), 1);
+  // O usuário pediu uma única localidade. Mostramos o país com maior tráfego.
+  const ordered = [...rows].sort((a, b) =>
+    Number(b.visitors || 0) - Number(a.visitors || 0) ||
+    Number(b.pageviews || 0) - Number(a.pageviews || 0)
+  );
 
-  rows.slice(0, 12).forEach((row, index) => {
-    const code = String(row.country || 'Unknown').toUpperCase();
-    const visitors = Number(row.visitors || 0);
-    const pageviews = Number(row.pageviews || 0);
-    const pct = Math.max(4, (visitors / maxVisitors) * 100);
+  const row = ordered[0];
+  const code = String(row.country || 'Unknown').toUpperCase();
+  const visitors = Number(row.visitors || 0);
+  const pageviews = Number(row.pageviews || 0);
+  const totalVisitors = ordered.reduce((sum, item) => sum + Number(item.visitors || 0), 0);
+  const totalPageviews = ordered.reduce((sum, item) => sum + Number(item.pageviews || 0), 0);
+  const base = totalVisitors > 0 ? totalVisitors : totalPageviews;
+  const value = totalVisitors > 0 ? visitors : pageviews;
+  const percentage = base > 0 ? Math.round((value / base) * 100) : 0;
 
-    const item = document.createElement('div');
-    item.className = 'stats-country-item';
-    item.innerHTML = `
-      <div class="stats-country-rank">${index + 1}</div>
-      <div class="stats-country-flag">${countryFlag(code)}</div>
-      <div class="stats-country-main">
-        <div class="stats-country-title"><strong>${countryLabel(code)}</strong><span>${ptBR.format(visitors)} visitante${visitors === 1 ? '' : 's'}</span></div>
-        <div class="stats-country-bar"><span style="width:${pct}%"></span></div>
-        <small>${ptBR.format(pageviews)} visualizaç${pageviews === 1 ? 'ão' : 'ões'}</small>
-      </div>`;
-    countriesEl.appendChild(item);
-  });
+  countriesEl.innerHTML = `
+    <div class="stats-country-featured">
+      <div class="stats-country-featured-flag">${countryFlag(code)}</div>
+      <div class="stats-country-featured-copy">
+        <strong>${countryLabel(code)}</strong>
+        <span>${percentage}% dos visitantes no período</span>
+        <small>${ptBR.format(visitors)} visitante${visitors === 1 ? '' : 's'} • ${ptBR.format(pageviews)} visualizaç${pageviews === 1 ? 'ão' : 'ões'}</small>
+      </div>
+    </div>`;
 }
 
 function fillDailyRows(rows, since, until) {
@@ -222,7 +227,7 @@ async function loadStats() {
     clearNumbers();
     chartEl.replaceChildren();
     chartEmptyEl.hidden = false;
-    countriesEl.innerHTML = '<div class="stats-country-empty">As localidades serão exibidas quando a API estiver configurada.</div>';
+    countriesEl.innerHTML = '<div class="stats-country-empty">O país será exibido quando a API estiver configurada.</div>';
     updatedEl.textContent = 'Não atualizado';
     periodLabelEl.textContent = `${formatDate(sinceEl.value, true)} a ${formatDate(untilEl.value, true)}`;
 

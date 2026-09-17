@@ -210,3 +210,15 @@ ESTATÍSTICAS COM VERCEL WEB ANALYTICS
 - O valor deve ser um Vercel Access Token; não use uma AI Gateway/API key com prefixo vck_.
 - O gráfico permite 7, 14, 30 dias ou intervalo personalizado.
 - A seção Localidade apresenta países, porque o Web Analytics fornece localização agregada por país.
+
+
+IDIOMAS DO SITE
+===============
+O portal possui um seletor de idioma no cabeçalho com:
+- Português (padrão)
+- English
+- Español
+
+Arquivo principal: js/idiomas.js
+O idioma escolhido fica salvo no navegador por localStorage e é mantido ao navegar entre as páginas.
+Para acrescentar novas traduções, edite o objeto T no arquivo js/idiomas.js.

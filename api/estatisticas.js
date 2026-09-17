@@ -173,20 +173,66 @@ module.exports = async function handler(req, res) {
       })
     ]);
 
-    const dailyRows = Array.isArray(dailyResult?.data) ? dailyResult.data : [];
-    const countryRows = Array.isArray(countryResult?.data) ? countryResult.data : [];
+    // A resposta do Web Analytics pode trazer as métricas diretamente na linha
+    // ou agrupadas em `metrics`. A dimensão agrupada costuma vir em `key`.
+    // Mantemos compatibilidade com ambos os formatos.
+    function resultRows(result) {
+      if (Array.isArray(result?.data)) return result.data;
+      if (Array.isArray(result?.rows)) return result.rows;
+      if (Array.isArray(result)) return result;
+      return [];
+    }
+
+    function metric(row, name) {
+      const candidates = [
+        row?.[name],
+        row?.metrics?.[name],
+        row?.metric?.[name],
+        row?.values?.[name]
+      ];
+      for (const candidate of candidates) {
+        const value = Number(candidate);
+        if (Number.isFinite(value)) return value;
+      }
+      return 0;
+    }
+
+    function dimension(row, name) {
+      const candidates = [
+        row?.[name],
+        row?.key,
+        row?.dimension,
+        row?.group,
+        row?.value
+      ];
+      for (const candidate of candidates) {
+        if (candidate !== undefined && candidate !== null && String(candidate).trim()) {
+          return String(candidate);
+        }
+      }
+      return '';
+    }
+
+    const dailyRows = resultRows(dailyResult);
+    const countryRows = resultRows(countryResult);
 
     const daily = dailyRows.map(row => ({
-      date: String(row.timestamp || '').slice(0, 10),
-      visitors: Number(row.visitors || 0),
-      pageviews: Number(row.pageviews || 0)
+      date: String(
+        row?.timestamp ||
+        row?.date ||
+        dimension(row, 'day') ||
+        ''
+      ).slice(0, 10),
+      visitors: metric(row, 'visitors'),
+      pageviews: metric(row, 'pageviews')
     })).filter(row => row.date);
 
     const countries = countryRows.map(row => ({
-      country: row.country || 'Unknown',
-      visitors: Number(row.visitors || 0),
-      pageviews: Number(row.pageviews || 0)
-    })).sort((a, b) => b.visitors - a.visitors || b.pageviews - a.pageviews);
+      country: dimension(row, 'country').toUpperCase() || 'Unknown',
+      visitors: metric(row, 'visitors'),
+      pageviews: metric(row, 'pageviews')
+    })).filter(row => row.country !== 'UNKNOWN')
+      .sort((a, b) => b.visitors - a.visitors || b.pageviews - a.pageviews);
 
     const visitors = daily.reduce((sum, row) => sum + row.visitors, 0);
     const pageviews = daily.reduce((sum, row) => sum + row.pageviews, 0);
