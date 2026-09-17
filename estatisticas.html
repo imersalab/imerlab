@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Estatísticas de acesso | ImersaLab</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="container nav">
+      <a class="brand" href="index.html"><span class="brand-mark">XR</span><span>ImersaLab</span></a>
+      <div class="nav-links">
+        <a href="index.html">INÍCIO</a>
+        <a href="sobre.html">SOBRE</a>
+        <a href="equipe.html">EQUIPE</a>
+        <a href="contato.html">CONTATO</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="stats-page">
+    <section class="stats-hero">
+      <div class="container">
+        <span class="stats-kicker">CONTROLE DE ACESSOS</span>
+        <div class="stats-hero-row">
+          <div>
+            <h1>Estatísticas do ImersaLab</h1>
+            <p>Acompanhe acessos ao site sem armazenar nome, e-mail ou outros dados pessoais do visitante.</p>
+          </div>
+          <button class="btn btn-primary" id="refreshStats" type="button">Atualizar dados</button>
+        </div>
+        <div id="statsStatus" class="stats-status loading">Carregando…</div>
+      </div>
+    </section>
+
+    <section class="container stats-content">
+      <div class="stats-grid">
+        <article class="stats-card">
+          <span class="stats-icon">👥</span>
+          <small>VISITAS</small>
+          <strong id="statVisitas">—</strong>
+          <p>Uma nova visita é contabilizada após 30 minutos sem acesso neste navegador.</p>
+        </article>
+        <article class="stats-card">
+          <span class="stats-icon">🧭</span>
+          <small>VISITANTES ÚNICOS</small>
+          <strong id="statUnicos">—</strong>
+          <p>Estimativa por navegador/dispositivo. Limpar os dados do navegador pode gerar nova contagem.</p>
+        </article>
+        <article class="stats-card">
+          <span class="stats-icon">📄</span>
+          <small>PÁGINAS VISUALIZADAS</small>
+          <strong id="statPaginas">—</strong>
+          <p>Total de carregamentos das páginas monitoradas do projeto.</p>
+        </article>
+      </div>
+
+      <div class="stats-info-grid">
+        <article class="stats-panel">
+          <h2>Como a contagem funciona</h2>
+          <p>O site registra uma visualização de página a cada carregamento. Para evitar que cada clique interno seja tratado como uma nova pessoa, o navegador mantém um identificador local simples e o horário da última visita.</p>
+          <p><strong>Última atualização:</strong> <span id="statAtualizado">—</span></p>
+        </article>
+
+        <article class="stats-panel stats-setup" id="statsSetup" hidden>
+          <h2>Ativação necessária</h2>
+          <p>O contador já está implementado no projeto. Para começar a registrar acessos, crie duas variáveis de ambiente na Vercel:</p>
+          <code>COUNTERAPI_WORKSPACE</code>
+          <code>COUNTERAPI_TOKEN</code>
+          <p>Depois de salvar as variáveis, faça um novo deploy. O token fica somente no servidor e não é exposto no HTML.</p>
+        </article>
+
+        <article class="stats-panel stats-diagnostic" id="statsDiagnostic" hidden>
+          <h2>Diagnóstico do contador</h2>
+          <p id="statsDiagnosticText">—</p>
+          <p><a class="btn btn-outline" id="apiTestLink" href="/api/visitas" target="_blank" rel="noopener">Testar /api/visitas</a></p>
+          <p class="stats-help-note">Se o link acima abrir uma mensagem JSON, copie a mensagem exibida. Ela indicará exatamente se falta configuração, se o token foi recusado ou se o workspace está incorreto.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><div><h4>ImersaLab</h4><p>Realidade Aumentada, Realidade Virtual e Simuladores para ensino e treinamento.</p></div><div><h4>Controle</h4><a href="estatisticas.html">Estatísticas de acesso</a></div><div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="contato.html">Contato</a></div></div></footer>
+
+  <script src="js/estatisticas.js"></script>
+</body>
+</html>

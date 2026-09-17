@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Entre em contato com o ImersaLab para mensagens, visitas, parcerias e sugestões de novos aplicativos.">
+  <title>Contato | ImersaLab</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="contact-page">
+<header class="topbar">
+  <nav class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">XR</span> ImersaLab</a>
+    <div class="nav-links">
+      <a href="index.html#videos">VÍDEOS</a>
+      <a href="index.html#catalogo">EXPERIÊNCIAS</a>
+      <a href="doacao.html">APOIE</a>
+      <a class="contact-nav-btn" href="contato.html">CONTATO</a>
+    </div>
+  </nav>
+</header>
+
+<section class="contact-hero">
+  <div class="container contact-hero-grid">
+    <div>
+      <span class="contact-kicker">Fale com o projeto</span>
+      <h1>Vamos construir novas experiências juntos.</h1>
+      <p>Entre em contato para tirar dúvidas, solicitar uma visita ao seu estabelecimento, propor parcerias ou sugerir novos aplicativos educacionais em Realidade Aumentada, Realidade Virtual e Simuladores.</p>
+    </div>
+    <div class="contact-hero-card">
+      <div class="contact-hero-icon">✉</div>
+      <strong>Canal direto de contato</strong>
+      <small>Sua mensagem será enviada para a equipe do projeto por e-mail.</small>
+    </div>
+  </div>
+</section>
+
+<main class="contact-main">
+  <div class="container contact-layout">
+    <section class="contact-form-card">
+      <div class="contact-form-head">
+        <span class="section-kicker">Envie sua solicitação</span>
+        <h2>Como podemos ajudar?</h2>
+        <p>Escolha o tipo de contato e preencha os campos abaixo.</p>
+      </div>
+
+      <form id="contactForm" action="https://formsubmit.co/vslssbarbosa@gmail.com" method="POST" accept-charset="UTF-8">
+        <input type="hidden" name="_subject" id="formSubject" value="Novo contato - ImersaLab">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" id="formNext" value="" disabled>
+        <input type="hidden" name="_replyto" id="replyToEmail" value="">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="contact-purpose-grid">
+          <label class="contact-purpose-option active">
+            <input type="radio" name="Tipo de contato" value="Mensagem geral" checked>
+            <span class="purpose-icon">💬</span>
+            <span><strong>Mensagem</strong><small>Dúvidas, informações ou parcerias.</small></span>
+          </label>
+          <label class="contact-purpose-option">
+            <input type="radio" name="Tipo de contato" value="Solicitação de visita">
+            <span class="purpose-icon">🏫</span>
+            <span><strong>Solicitar visita</strong><small>Leve o projeto até sua instituição.</small></span>
+          </label>
+          <label class="contact-purpose-option">
+            <input type="radio" name="Tipo de contato" value="Sugestão de novo aplicativo">
+            <span class="purpose-icon">💡</span>
+            <span><strong>Sugerir aplicativo</strong><small>Envie uma ideia para um novo projeto.</small></span>
+          </label>
+        </div>
+
+        <div class="contact-divider"></div>
+
+        <div class="contact-fields-grid">
+          <label class="contact-field"><span>Nome completo *</span><input type="text" name="Nome" id="contactName" placeholder="Digite seu nome" required></label>
+          <label class="contact-field"><span>E-mail *</span><input type="email" name="email" id="contactEmail" placeholder="voce@email.com" required></label>
+          <label class="contact-field"><span>Telefone / WhatsApp</span><input type="tel" name="Telefone" id="contactPhone" placeholder="(79) 99999-9999"></label>
+          <label class="contact-field"><span>Cidade / Estado</span><input type="text" name="Cidade e Estado" id="contactCity" placeholder="Ex.: Lagarto - SE"></label>
+        </div>
+
+        <div class="conditional-section" id="visitFields" hidden>
+          <div class="conditional-title"><span>🏫</span><div><h3>Informações para a visita</h3><p>Conte um pouco sobre a instituição e a visita desejada.</p></div></div>
+          <div class="contact-fields-grid">
+            <label class="contact-field"><span>Nome do estabelecimento *</span><input type="text" name="Estabelecimento" id="visitInstitution" placeholder="Escola, empresa, instituição..."></label>
+            <label class="contact-field"><span>Tipo de estabelecimento</span><select name="Tipo de estabelecimento" id="visitInstitutionType"><option value="">Selecione</option><option>Escola pública</option><option>Escola privada</option><option>Instituição de ensino técnico</option><option>Universidade / Faculdade</option><option>Empresa</option><option>Evento / Feira</option><option>Outro</option></select></label>
+            <label class="contact-field"><span>Data preferencial</span><input type="date" name="Data preferencial" id="visitDate"></label>
+            <label class="contact-field"><span>Quantidade estimada de participantes</span><input type="number" name="Quantidade de participantes" id="visitPeople" min="1" placeholder="Ex.: 30"></label>
+          </div>
+        </div>
+
+        <div class="conditional-section" id="appSuggestionFields" hidden>
+          <div class="conditional-title"><span>💡</span><div><h3>Sugestão de novo aplicativo</h3><p>Ajude-nos a identificar novos conteúdos que podem se tornar experiências interativas.</p></div></div>
+          <div class="contact-fields-grid">
+            <label class="contact-field"><span>Nome sugerido para o aplicativo</span><input type="text" name="Nome sugerido do aplicativo" id="appName" placeholder="Ex.: Eletricidade AR"></label>
+            <label class="contact-field"><span>Área do conhecimento</span><select name="Área do conhecimento" id="appArea"><option value="">Selecione</option><option>Física</option><option>Química</option><option>Biologia</option><option>Matemática</option><option>Astronomia</option><option>Tecnologia</option><option>Treinamento profissional</option><option>Outro</option></select></label>
+            <label class="contact-field"><span>Tecnologia sugerida</span><select name="Tecnologia sugerida" id="appTechnology"><option value="">Selecione</option><option>Realidade Aumentada</option><option>Realidade Virtual</option><option>Simulador</option><option>Não sei / quero uma recomendação</option></select></label>
+            <label class="contact-field"><span>Público-alvo</span><input type="text" name="Público-alvo" id="appAudience" placeholder="Ex.: Ensino Médio"></label>
+          </div>
+        </div>
+
+        <label class="contact-field contact-message-field"><span id="messageLabel">Mensagem *</span><textarea name="Mensagem" id="contactMessage" rows="7" placeholder="Escreva sua mensagem..." required></textarea></label>
+
+        <label class="contact-consent"><input type="checkbox" required><span>Concordo em fornecer estes dados para que a equipe do ImersaLab possa entrar em contato comigo.</span></label>
+
+        <div class="contact-submit-row">
+          <button class="contact-submit-btn" id="contactSubmitBtn" type="submit"><span>✉</span> Enviar mensagem</button>
+          <span class="contact-email-hint">Destino: <strong>vslssbarbosa@gmail.com</strong></span>
+        </div>
+        <div class="contact-form-status" id="contactStatus" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <aside class="contact-info-column">
+      <div class="contact-info-card"><span class="contact-info-icon">💬</span><h3>Mensagem ou parceria</h3><p>Entre em contato para dúvidas, projetos educacionais, parcerias ou demonstrações.</p></div>
+      <div class="contact-info-card"><span class="contact-info-icon">🏫</span><h3>Visitas</h3><p>Solicite uma visita para apresentar experiências de RA, RV e simuladores em sua instituição.</p></div>
+      <div class="contact-info-card"><span class="contact-info-icon">💡</span><h3>Novas ideias</h3><p>Professores, estudantes e instituições podem sugerir novos aplicativos para o ecossistema.</p></div>
+      <div class="contact-direct-card"><span>Contato direto</span><strong>vslssbarbosa@gmail.com</strong><p>Utilize preferencialmente o formulário para que todas as informações da solicitação sejam enviadas juntas.</p></div>
+    </aside>
+  </div>
+</main>
+
+<footer><div class="container"><div><h4>ImersaLab</h4><p>Realidade Aumentada, Realidade Virtual e Simuladores para ensino e treinamento.</p></div><div><h4>Explorar</h4><a href="index.html#catalogo">Experiências</a><br><a href="index.html#videos">Vídeos</a></div><div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="doacao.html">Apoie o projeto</a><br><a href="estatisticas.html">Estatísticas</a><br><a href="contato.html">Contato</a></div>
+    <div class="footer-social-column footer-social-inline">
+      <h4 class="footer-social-heading">Mídias sociais:</h4>
+      <div class="social-links" aria-label="Redes sociais do projeto">
+        <a class="social-link" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook do ImersaLab" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5A17 17 0 0 0 14.4 4C11.8 4 10 5.6 10 8.6V11H7v4h3v7h4v-7h3.2l.6-4H14V8.8c0-.6.2-.8 1-.8Z"></path></svg><span class="sr-only">Facebook</span>
+        </a>
+        <a class="social-link" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do ImersaLab" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span class="sr-only">Instagram</span>
+        </a>
+        <a class="social-link" data-social="x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X do ImersaLab" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4.1l4.2 5.7L17.8 4H20l-6.2 7.2L20 20h-4.1l-4.5-6.1L6.1 20H4l6.4-7.4z"></path></svg><span class="sr-only">X</span>
+        </a>
+        <a class="social-link" data-social="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube do ImersaLab" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.6 12 5.6 12 5.6s-5 0-6.9.5A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.5 6.9.5 6.9.5s5 0 6.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"></path><path class="social-fill" d="m10 9 5 3-5 3Z"></path></svg><span class="sr-only">YouTube</span>
+        </a>
+        <a class="social-link" data-social="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do ImersaLab" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.2A1.95 1.95 0 1 0 6.9 4.3a1.95 1.95 0 0 0 0 3.9ZM5 9.5h3.7V20H5zm5.8 0h3.6v1.5h.1c.5-.9 1.7-1.8 3.5-1.8 3.8 0 4.5 2.3 4.5 5.4V20h-3.7v-4.7c0-1.1 0-2.6-1.7-2.6s-1.9 1.2-1.9 2.5V20h-3.7z"></path></svg><span class="sr-only">LinkedIn</span>
+        </a>
+        <a class="social-link" data-social="tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok do ImersaLab" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.2 4.2 0 1 1-3.5-4.1v3a1.4 1.4 0 1 0 .7 1.2V2h3.1c.5 2.1 1.8 3.5 3.7 4.2V9c-1.6-.2-2.9-.8-4-1.8"></path></svg><span class="sr-only">TikTok</span>
+        </a>
+      </div>
+    </div>
+  </div></footer>
+<script src="js/contato.js"></script>
+<script src="js/redes.js"></script>
+<script src="js/visitas.js"></script>
+</body>
+</html>

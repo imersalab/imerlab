@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto | ImersaLab</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar"><nav class="container nav">
+  <a class="brand" href="index.html"><span class="brand-mark">XR</span> ImersaLab</a>
+  <div class="nav-links"><a href="index.html#catalogo">EXPERIÊNCIAS</a><a href="#">ENSINO</a><a href="#">INICIATIVAS</a><a href="#">SOBRE</a><a href="contato.html">CONTATO</a><a class="donate-nav-btn" href="doacao.html">❤ APOIE</a><span class="nav-search">⌕</span></div>
+</nav></header>
+
+<section class="detail-hero">
+  <div class="detail-hero-bg" id="heroBg"></div>
+  <div class="detail-hero-inner">
+    <div class="video-card" id="promoVideoCard" title="Clique para assistir ao vídeo">
+      <video id="promoVideo" muted loop playsinline preload="metadata">
+        <source id="videoSource" src="" type="video/mp4">
+      </video>
+      <div class="video-fallback" id="videoFallback">
+        <div class="big-icon" id="videoIcon">🧪</div>
+        <strong id="videoProjectTitle">Projeto</strong>
+        <span>Vídeo de divulgação • clique para assistir</span>
+      </div>
+      <div class="play-circle">▶</div><div class="ribbon">PROJETO</div>
+    </div>
+  </div>
+</section>
+
+<main class="detail-main">
+  <div class="container detail-header">
+    <h1 class="detail-title" id="title">Projeto</h1>
+    <div class="quick-actions">
+      <button class="icon-btn" title="Baixar">↓</button><button class="icon-btn" title="Código">&lt;/&gt;</button>
+      <button class="icon-btn" title="Compartilhar">↗</button><button class="custom-btn guide-quick-btn" id="openGuideTop">📖 Guia de estudo</button><button class="custom-btn" id="openSimTop">▶ Abrir experiência</button>
+    </div>
+
+<section class="ar-kit-section" id="arKitSection" hidden>
+  <div class="ar-kit-header">
+    <div>
+      <span class="ar-kit-kicker">Kit de Realidade Aumentada</span>
+      <h2>Card de referência da experiência</h2>
+      <p>Imprima o card e utilize-o como alvo para projetar o conteúdo 3D no ambiente real.</p>
+    </div>
+  </div>
+  <div class="ar-kit-grid">
+    <div class="ar-card-preview">
+      <img id="arCardImage" src="" alt="Card de referência do projeto">
+    </div>
+    <div class="ar-card-info">
+      <h3 id="arCardTitle">Card RA</h3>
+      <p id="arCardText"></p>
+      <div class="ar-action-row">
+        <button class="btn btn-primary" id="arWatchVideo">▶ Assistir ao vídeo explicativo</button>
+        <a class="btn btn-outline" id="arDownloadCard" href="#" download>↓ Baixar card</a>
+        <a class="btn btn-app-download" id="arDownloadApp" href="#" download>📱 Baixar aplicativo Android</a>
+      </div>
+      <div class="ar-print-note"><strong>Para impressão:</strong> mantenha a proporção original da imagem e evite recortes ou deformações.</div>
+    </div>
+  </div>
+</section>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="sobre">Sobre</button>
+      <button class="tab-btn" data-tab="recursos">Recursos de ensino</button>
+      <button class="tab-btn" data-tab="guia-estudo">📖 Guia de estudo</button>
+      <button class="tab-btn" data-tab="atividades">Atividades</button>
+      <button class="tab-btn" data-tab="topicos">Tópicos</button>
+      <button class="tab-btn ar-only-tab" data-tab="plano-aula" hidden>Plano de aula</button>
+      <button class="tab-btn ar-only-tab" data-tab="como-utilizar" hidden>Como utilizar</button>
+      <button class="tab-btn ar-only-tab" data-tab="roteiros-aula" hidden>Roteiros de aula</button>
+      <button class="tab-btn" data-tab="creditos">Créditos</button>
+    </div>
+  </div>
+
+  <div class="container detail-content">
+    <section>
+      <div class="tab-panel active" id="sobre">
+        <div class="thumb-row" id="thumbRow"></div>
+        <div class="topic-box"><div class="topic-icon">☑️</div><div><h3>Tópicos</h3><ul class="topic-list" id="topicList"></ul></div></div>
+        <div class="topic-box"><div class="topic-icon">ℹ️</div><div><h3>Sobre a experiência</h3><p class="detail-copy" id="summary"></p></div></div>
+        <div class="video-tip">💡 Para usar seu próprio vídeo, coloque o arquivo MP4 em <strong>assets/videos/</strong> usando o ID do projeto. Ex.: <strong>luxrefra-ar.mp4</strong>.</div>
+      </div>
+      <div class="tab-panel" id="recursos"><h2>Recursos de ensino</h2><div class="resource-grid" id="resources"></div></div>
+      <div class="tab-panel" id="guia-estudo">
+        <div class="guide-entry-hero">
+          <div class="guide-entry-icon">📖</div>
+          <div>
+            <span class="activity-kicker">Material de apoio ao estudo</span>
+            <h2>Guia de estudo ilustrado</h2>
+            <p class="detail-copy">Acesse um material visual em formato de livro, inspirado no modelo didático apresentado, com textos, conceitos, aplicações e imagens de apoio relacionadas a esta experiência.</p>
+          </div>
+        </div>
+        <div class="guide-entry-grid">
+          <article class="guide-entry-card"><span>01</span><h3>Conceitos principais</h3><p>Resumo dos conceitos essenciais para compreender o tema antes de utilizar o simulador.</p></article>
+          <article class="guide-entry-card"><span>02</span><h3>Estudo orientado</h3><p>Textos explicativos e observações que auxiliam o professor a conduzir a investigação.</p></article>
+          <article class="guide-entry-card"><span>03</span><h3>Aplicações</h3><p>Exemplos práticos e relações do conteúdo com situações do cotidiano e outras áreas.</p></article>
+        </div>
+        <div class="guide-entry-actions">
+          <button class="btn btn-primary" id="openGuidePanel">📖 Abrir guia de estudo</button>
+          <small>O guia abre diretamente na página da experiência, pronto para leitura.</small>
+        </div>
+      </div>
+      <div class="tab-panel" id="atividades">
+        <h2>Atividades</h2>
+        <p class="detail-copy">Baixe a atividade pronta para utilizar com a turma e, abaixo, consulte outras sugestões relacionadas à experiência.</p>
+        <div class="activity-download-card" id="activityDownloadCard" hidden>
+          <div class="activity-download-icon">📥</div>
+          <div class="activity-download-copy">
+            <span class="activity-kicker">Material para o professor</span>
+            <h3 id="activityDownloadTitle">Atividade investigativa em PDF</h3>
+            <p id="activityDownloadText">Arquivo incluído no próprio projeto e pronto para impressão ou distribuição aos estudantes.</p>
+          </div>
+          <div class="activity-download-actions">
+            <a class="btn btn-outline" id="activityPreview" href="#" target="_blank" rel="noopener">Visualizar PDF</a>
+            <a class="btn btn-primary" id="activityDownload" href="#" download>↓ Baixar atividade</a>
+          </div>
+        </div>
+        <h3 class="activity-suggestions-title">Outras atividades sugeridas</h3>
+        <div class="resource-grid" id="activities"></div>
+      </div>
+      <div class="tab-panel" id="topicos"><h2>Tópicos trabalhados</h2><ul class="topic-list" id="topicsLong"></ul></div>
+      <div class="tab-panel" id="plano-aula">
+        <h2>Plano de aula</h2>
+        <p class="detail-copy">Estrutura-base para planejar a utilização da experiência em sala.</p>
+        <div class="pedagogical-list" id="lessonPlanList"></div>
+      </div>
+      <div class="tab-panel" id="como-utilizar">
+        <h2>Como utilizar</h2>
+        <p class="detail-copy">Passo a passo para preparar o card e iniciar a experiência de Realidade Aumentada.</p>
+        <div class="steps-list" id="howToUseList"></div>
+      </div>
+      <div class="tab-panel" id="roteiros-aula">
+        <h2>Sugestões de roteiros de aula</h2>
+        <p class="detail-copy">Ideias de atividades que podem ser adaptadas ao perfil da turma.</p>
+        <div class="resource-grid" id="lessonScriptsList"></div>
+      </div>
+      <div class="tab-panel" id="creditos"><h2>Créditos</h2><p class="detail-copy" id="credits"></p></div>
+    </section>
+    <aside class="sidebar">
+      <div class="support-card">
+        <h4>Informações do projeto</h4><div class="support-logo" id="sideIcon">XR</div>
+        <p><strong>Tecnologia:</strong> <span id="tech"></span></p>
+        <p><strong>Área:</strong> <span id="subject"></span></p>
+        <p><strong>Nível:</strong> <span id="levels"></span></p>
+        <p><strong>Compatibilidade:</strong> <span id="platforms"></span></p>
+        <button class="btn btn-primary" id="openSimSide">▶ Abrir simulador / experiência</button><button class="btn btn-outline guide-side-btn" id="openGuideSide">📖 Guia de estudo</button>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div class="video-modal" id="videoModal" aria-hidden="true">
+  <div class="video-modal-backdrop" data-close-video></div>
+  <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-label="Vídeo do projeto">
+    <button class="video-modal-close" id="closeVideoModal" aria-label="Fechar vídeo">×</button>
+    <div class="video-modal-player">
+      <video id="modalVideo" controls playsinline preload="metadata"></video>
+      <div class="video-modal-fallback" id="modalVideoFallback">
+        <div class="modal-project-icon" id="modalProjectIcon">🎬</div>
+        <h2 id="modalProjectTitle">Vídeo do projeto</h2>
+        <p>Adicione o arquivo MP4 deste projeto em <strong>assets/videos/</strong> para reproduzi-lo aqui.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="container"><div><h4>ImersaLab</h4><p>Experiências educacionais imersivas e interativas.</p></div><div><h4>Explorar</h4><a href="index.html">Voltar ao catálogo</a></div><div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="contato.html">Contato</a><br><a href="doacao.html">Apoie o projeto</a><br><a href="estatisticas.html">Estatísticas</a></div>
+    <div class="footer-social-column footer-social-inline">
+      <h4 class="footer-social-heading">Mídias sociais:</h4>
+      <div class="social-links" aria-label="Redes sociais do projeto">
+        <a class="social-link" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook do ImersaLab" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5A17 17 0 0 0 14.4 4C11.8 4 10 5.6 10 8.6V11H7v4h3v7h4v-7h3.2l.6-4H14V8.8c0-.6.2-.8 1-.8Z"></path></svg><span class="sr-only">Facebook</span>
+        </a>
+        <a class="social-link" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do ImersaLab" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span class="sr-only">Instagram</span>
+        </a>
+        <a class="social-link" data-social="x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X do ImersaLab" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4.1l4.2 5.7L17.8 4H20l-6.2 7.2L20 20h-4.1l-4.5-6.1L6.1 20H4l6.4-7.4z"></path></svg><span class="sr-only">X</span>
+        </a>
+        <a class="social-link" data-social="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube do ImersaLab" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.6 12 5.6 12 5.6s-5 0-6.9.5A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.5 6.9.5 6.9.5s5 0 6.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"></path><path class="social-fill" d="m10 9 5 3-5 3Z"></path></svg><span class="sr-only">YouTube</span>
+        </a>
+        <a class="social-link" data-social="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do ImersaLab" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.2A1.95 1.95 0 1 0 6.9 4.3a1.95 1.95 0 0 0 0 3.9ZM5 9.5h3.7V20H5zm5.8 0h3.6v1.5h.1c.5-.9 1.7-1.8 3.5-1.8 3.8 0 4.5 2.3 4.5 5.4V20h-3.7v-4.7c0-1.1 0-2.6-1.7-2.6s-1.9 1.2-1.9 2.5V20h-3.7z"></path></svg><span class="sr-only">LinkedIn</span>
+        </a>
+        <a class="social-link" data-social="tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok do ImersaLab" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.2 4.2 0 1 1-3.5-4.1v3a1.4 1.4 0 1 0 .7 1.2V2h3.1c.5 2.1 1.8 3.5 3.7 4.2V9c-1.6-.2-2.9-.8-4-1.8"></path></svg><span class="sr-only">TikTok</span>
+        </a>
+      </div>
+    </div>
+  </div></footer>
+<script src="js/projetos.js"></script><script src="js/detalhe.js"></script>
+<script src="js/redes.js"></script>
+<script src="js/visitas.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+FOTOS DA EQUIPE
+================
+Coloque aqui as fotos dos integrantes.
+
+Exemplo:
+assets/equipe/valdenilson.jpg
+
+Depois abra js/equipe.js e informe o caminho no campo "foto":
+foto: "assets/equipe/valdenilson.jpg"
+
+Também é possível cadastrar LinkedIn e e-mail de cada integrante no mesmo arquivo.

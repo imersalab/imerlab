@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apoie o desenvolvimento de experiências educacionais em Realidade Aumentada, Realidade Virtual e Simuladores.">
+  <title>Apoie o projeto | ImersaLab</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="donation-page">
+<header class="topbar">
+  <nav class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">XR</span> ImersaLab</a>
+    <div class="nav-links">
+      <a href="index.html#catalogo">EXPERIÊNCIAS</a>
+      <a href="index.html#videos">VÍDEOS</a>
+      <a href="contato.html">CONTATO</a><a href="index.html">VOLTAR AO SITE</a>
+    </div>
+  </nav>
+</header>
+
+<section class="donation-hero">
+  <div class="container donation-hero-grid">
+    <div>
+      <span class="donation-kicker">Ajude a educação imersiva a crescer</span>
+      <h1>Apoie o desenvolvimento do ImersaLab</h1>
+      <p>
+        Sua contribuição ajuda a criar novos aplicativos de Realidade Aumentada,
+        Realidade Virtual, simuladores, materiais didáticos, cards e recursos
+        gratuitos para estudantes e educadores.
+      </p>
+    </div>
+    <div class="donation-impact-card">
+      <span>❤</span>
+      <strong>Seu apoio gera novas experiências</strong>
+      <small>Cada contribuição pode ajudar no desenvolvimento, testes, hospedagem, produção de materiais e publicação de novos projetos.</small>
+    </div>
+  </div>
+</section>
+
+<main class="donation-main">
+  <div class="container donation-layout">
+    <section class="donation-form-card">
+      <div class="donation-step">
+        <div class="donation-step-title">
+          <span class="step-badge">1</span>
+          <div>
+            <h2>Escolha sua contribuição</h2>
+            <p>Selecione um valor ou informe outro valor.</p>
+          </div>
+        </div>
+
+        <div class="frequency-toggle">
+          <button type="button" class="frequency-btn active" data-frequency="once">Doação única</button>
+          <button type="button" class="frequency-btn" data-frequency="monthly">Mensal</button>
+        </div>
+
+        <div class="amount-grid">
+          <button type="button" class="amount-btn" data-amount="10">R$ 10</button>
+          <button type="button" class="amount-btn" data-amount="25">R$ 25</button>
+          <button type="button" class="amount-btn active" data-amount="50">R$ 50</button>
+          <button type="button" class="amount-btn" data-amount="100">R$ 100</button>
+          <button type="button" class="amount-btn" data-amount="250">R$ 250</button>
+          <button type="button" class="amount-btn" data-amount="500">R$ 500</button>
+        </div>
+
+        <label class="donation-field donation-custom-amount">
+          <span>Outro valor</span>
+          <div class="currency-input"><b>R$</b><input id="customAmount" type="number" min="1" step="1" placeholder="Digite o valor"></div>
+        </label>
+      </div>
+
+      <div class="donation-divider"></div>
+
+      <div class="donation-step">
+        <div class="donation-step-title">
+          <span class="step-badge">2</span>
+          <div>
+            <h2>Seus dados</h2>
+            <p>Essas informações ajudam a registrar e agradecer sua contribuição.</p>
+          </div>
+        </div>
+
+        <div class="donor-fields">
+          <label class="donation-field">
+            <span>Nome completo</span>
+            <input id="donorName" type="text" placeholder="Seu nome">
+          </label>
+          <label class="donation-field">
+            <span>E-mail</span>
+            <input id="donorEmail" type="email" placeholder="voce@email.com">
+          </label>
+        </div>
+
+        <label class="donation-check">
+          <input id="anonymousDonation" type="checkbox">
+          <span>Quero que minha contribuição apareça como anônima.</span>
+        </label>
+
+        <label class="donation-field">
+          <span>Mensagem de apoio <small>(opcional)</small></span>
+          <textarea id="donorMessage" rows="4" placeholder="Escreva uma mensagem para o projeto..."></textarea>
+        </label>
+      </div>
+
+      <div class="donation-divider"></div>
+
+      <div class="donation-step">
+        <div class="donation-step-title">
+          <span class="step-badge">3</span>
+          <div>
+            <h2>Forma de contribuição</h2>
+            <p>Escolha como deseja continuar.</p>
+          </div>
+        </div>
+
+        <div class="payment-options">
+          <button class="payment-option active" type="button" data-payment="pix">
+            <span class="payment-icon">◆</span>
+            <span><strong>PIX</strong><small>Rápido e fácil</small></span>
+          </button>
+          <button class="payment-option" type="button" data-payment="checkout">
+            <span class="payment-icon">▣</span>
+            <span><strong>Pagamento online</strong><small>Mercado Pago, Stripe ou outro checkout</small></span>
+          </button>
+        </div>
+
+        <div class="payment-info-panel" id="pixPanel">
+          <h3>PIX</h3>
+          <p>
+            O site já está preparado para receber sua chave PIX.
+            Edite o arquivo <strong>js/doacao.js</strong> e preencha
+            <strong>pixKey</strong>. Depois disso, a chave será exibida aqui.
+          </p>
+          <div class="pix-key-box">
+            <span id="pixKeyLabel">Chave PIX ainda não configurada</span>
+            <button id="copyPixBtn" type="button" disabled>Copiar</button>
+          </div>
+        </div>
+
+        <div class="payment-info-panel hidden" id="checkoutPanel">
+          <h3>Checkout online</h3>
+          <p>
+            Informe uma URL de pagamento em <strong>js/doacao.js</strong>.
+            O botão abaixo passará a encaminhar o doador para o seu provedor de pagamentos.
+          </p>
+        </div>
+
+        <div class="donation-notice">
+          <strong>Importante:</strong> esta página organiza a campanha e a intenção de doação.
+          O processamento financeiro deve ser realizado por um provedor de pagamentos seguro.
+          O site não armazena dados de cartão.
+        </div>
+      </div>
+    </section>
+
+    <aside class="donation-summary-card">
+      <div class="donation-summary-sticky">
+        <span class="summary-label">Sua contribuição</span>
+        <div class="summary-amount" id="summaryAmount">R$ 50,00</div>
+        <div class="summary-frequency" id="summaryFrequency">Doação única</div>
+
+        <div class="summary-lines">
+          <div><span>Projeto</span><strong>ImersaLab</strong></div>
+          <div><span>Objetivo</span><strong>Educação imersiva</strong></div>
+          <div><span>Forma</span><strong id="summaryPayment">PIX</strong></div>
+        </div>
+
+        <button class="donate-submit-btn" id="donateSubmitBtn" type="button">
+          ❤ Continuar com a contribuição
+        </button>
+
+        <p class="summary-small">
+          Ao continuar, você será direcionado ao método de contribuição configurado para o projeto.
+        </p>
+
+        <div class="impact-list">
+          <h3>Como sua ajuda pode contribuir</h3>
+          <div>✓ Desenvolvimento de novos aplicativos</div>
+          <div>✓ Produção de cards e materiais didáticos</div>
+          <div>✓ Hospedagem e distribuição dos projetos</div>
+          <div>✓ Testes em dispositivos RA/RV</div>
+          <div>✓ Disponibilização de recursos educacionais</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div class="donation-modal" id="donationModal" aria-hidden="true">
+  <div class="donation-modal-backdrop" data-close-donation-modal></div>
+  <div class="donation-modal-box">
+    <button class="donation-modal-close" type="button" data-close-donation-modal>×</button>
+    <div class="donation-modal-icon">❤</div>
+    <h2 id="donationModalTitle">Obrigado por apoiar o projeto!</h2>
+    <p id="donationModalText"></p>
+    <button class="btn btn-primary" type="button" data-close-donation-modal>Entendi</button>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div><h4>ImersaLab</h4><p>Realidade Aumentada, Realidade Virtual e Simuladores para ensino e treinamento.</p></div>
+    <div><h4>Explorar</h4><a href="index.html#catalogo">Experiências</a></div>
+    <div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="contato.html">Contato</a><br><a href="estatisticas.html">Estatísticas</a><br><a href="index.html">Voltar ao site</a></div>
+    <div class="footer-social-column footer-social-inline">
+      <h4 class="footer-social-heading">Mídias sociais:</h4>
+      <div class="social-links" aria-label="Redes sociais do projeto">
+        <a class="social-link" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook do ImersaLab" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5A17 17 0 0 0 14.4 4C11.8 4 10 5.6 10 8.6V11H7v4h3v7h4v-7h3.2l.6-4H14V8.8c0-.6.2-.8 1-.8Z"></path></svg><span class="sr-only">Facebook</span>
+        </a>
+        <a class="social-link" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do ImersaLab" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span class="sr-only">Instagram</span>
+        </a>
+        <a class="social-link" data-social="x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X do ImersaLab" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4.1l4.2 5.7L17.8 4H20l-6.2 7.2L20 20h-4.1l-4.5-6.1L6.1 20H4l6.4-7.4z"></path></svg><span class="sr-only">X</span>
+        </a>
+        <a class="social-link" data-social="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube do ImersaLab" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.6 12 5.6 12 5.6s-5 0-6.9.5A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.5 6.9.5 6.9.5s5 0 6.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"></path><path class="social-fill" d="m10 9 5 3-5 3Z"></path></svg><span class="sr-only">YouTube</span>
+        </a>
+        <a class="social-link" data-social="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do ImersaLab" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.2A1.95 1.95 0 1 0 6.9 4.3a1.95 1.95 0 0 0 0 3.9ZM5 9.5h3.7V20H5zm5.8 0h3.6v1.5h.1c.5-.9 1.7-1.8 3.5-1.8 3.8 0 4.5 2.3 4.5 5.4V20h-3.7v-4.7c0-1.1 0-2.6-1.7-2.6s-1.9 1.2-1.9 2.5V20h-3.7z"></path></svg><span class="sr-only">LinkedIn</span>
+        </a>
+        <a class="social-link" data-social="tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok do ImersaLab" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.2 4.2 0 1 1-3.5-4.1v3a1.4 1.4 0 1 0 .7 1.2V2h3.1c.5 2.1 1.8 3.5 3.7 4.2V9c-1.6-.2-2.9-.8-4-1.8"></path></svg><span class="sr-only">TikTok</span>
+        </a>
+      </div>
+    </div>
+  </div></footer>
+
+<script src="js/doacao.js"></script>
+<script src="js/redes.js"></script>
+<script src="js/visitas.js"></script>
+</body>
+</html>

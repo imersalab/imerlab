@@ -1,0 +1,13 @@
+APLICATIVOS ANDROID (.APK)
+
+Coloque nesta pasta os arquivos APK dos projetos de Realidade Aumentada.
+O nome do arquivo deve ser exatamente o ID do projeto + .apk.
+
+Exemplos:
+- luxrefra-ar.apk
+- sistema-solar-ar.apk
+- moleculas-ar.apk
+- montagem-pc-ar.apk
+
+Não é necessário alterar o HTML, CSS ou JavaScript.
+Ao colocar o APK aqui com o nome correto, o botão "Baixar aplicativo Android" da página do projeto já apontará automaticamente para ele.

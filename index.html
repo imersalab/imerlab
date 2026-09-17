@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo educacional de Realidade Aumentada, Realidade Virtual e Simuladores.">
+  <title>ImersaLab | RA, RV e Simuladores</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <nav class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">XR</span> ImersaLab</a>
+    <div class="nav-links">
+      <a href="#videos">VÍDEOS</a><a href="#catalogo">EXPERIÊNCIAS</a><a href="#categorias">CATEGORIAS</a>
+      <a href="#ensino">ENSINO</a><a href="#iniciativas">INICIATIVAS</a>
+      <a href="sobre.html">SOBRE</a><a href="contato.html">CONTATO</a><a class="donate-nav-btn" href="doacao.html">❤ APOIE O PROJETO</a><span class="nav-search">⌕</span>
+    </div>
+  </nav>
+</header>
+
+<section class="hero-home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Ecossistema educacional imersivo</span>
+      <h1>RA, RV e simuladores em um só lugar.</h1>
+      <p>Explore experiências para Física, Matemática, Química, Biologia, Astronomia, Tecnologia e treinamento profissional. Encontre rapidamente o projeto ideal usando os filtros.</p>
+      <div class="hero-cta-row"><a class="btn btn-light" href="#catalogo">Explorar experiências</a><a href="doacao.html" class="btn btn-donate-hero">❤ Apoie o projeto</a></div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-mini"><span>📱</span><b>Realidade Aumentada</b><small>Objetos 3D sobre o mundo real.</small></div>
+      <div class="hero-mini"><span>🥽</span><b>Realidade Virtual</b><small>Ambientes imersivos e treinamentos.</small></div>
+      <div class="hero-mini"><span>🧪</span><b>Simuladores</b><small>Parâmetros, gráficos e experimentos.</small></div>
+      <div class="hero-mini"><span>🎓</span><b>Ensino & treinamento</b><small>Conteúdo acadêmico e profissional.</small></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="video-showcase" id="videos">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">Projetos em ação</span>
+        <h2>Veja como nossas experiências funcionam</h2>
+        <p>Vídeos curtos para apresentar os projetos antes de explorar o catálogo completo.</p>
+      </div>
+      <a class="btn btn-outline" href="#catalogo">Ver todos os projetos</a>
+    </div>
+
+    <div class="video-showcase-grid" id="homeVideoGrid"></div>
+  </div>
+</section>
+
+<main class="catalog-area" id="catalogo">
+  <div class="container">
+    <div class="catalog-head">
+      <div><h2>Experiências</h2><p>Selecione uma experiência para abrir sua página completa em uma nova guia.</p></div>
+      <div class="controls">
+        <button class="btn btn-outline mobile-filter" id="mobileFilter">☰ Filtros</button>
+        <label class="searchbox">⌕ <input id="searchInput" type="search" placeholder="Buscar experiência..."></label>
+        <select id="sortSelect" class="select"><option value="az">A–Z</option><option value="za">Z–A</option><option value="tech">Tecnologia</option></select>
+      </div>
+    </div>
+
+    <div class="catalog">
+      <aside class="filters" id="filters">
+        <div class="filter-top"><strong>Filtros</strong><button class="clear" id="clearFilters">Limpar</button></div>
+        <div class="filter-group" id="categorias"><div class="filter-title">Tecnologia</div><div class="filter-list">
+          <label><input data-filter="tech" type="checkbox" value="RA"> Realidade Aumentada</label>
+          <label><input data-filter="tech" type="checkbox" value="RV"> Realidade Virtual</label>
+          <label><input data-filter="tech" type="checkbox" value="SIM"> Simuladores</label>
+        </div></div>
+        <div class="filter-group"><div class="filter-title">Área</div><div class="filter-list">
+          <label><input data-filter="subject" type="checkbox" value="Física"> Física</label>
+          <label><input data-filter="subject" type="checkbox" value="Matemática"> Matemática</label>
+          <label><input data-filter="subject" type="checkbox" value="Química"> Química</label>
+          <label><input data-filter="subject" type="checkbox" value="Biologia"> Biologia</label>
+          <label><input data-filter="subject" type="checkbox" value="Astronomia"> Astronomia</label>
+          <label><input data-filter="subject" type="checkbox" value="Tecnologia"> Tecnologia</label>
+        </div></div>
+        <div class="filter-group"><div class="filter-title">Nível</div><div class="filter-list">
+          <label><input data-filter="level" type="checkbox" value="Fundamental II"> Fundamental II</label>
+          <label><input data-filter="level" type="checkbox" value="Ensino Médio"> Ensino Médio</label>
+          <label><input data-filter="level" type="checkbox" value="Técnico"> Técnico</label>
+          <label><input data-filter="level" type="checkbox" value="Superior"> Superior</label>
+          <label><input data-filter="level" type="checkbox" value="Treinamento"> Treinamento</label>
+        </div></div>
+        <div class="filter-group"><div class="filter-title">Plataforma</div><div class="filter-list">
+          <label><input data-filter="platform" type="checkbox" value="Android"> Android</label>
+          <label><input data-filter="platform" type="checkbox" value="Windows"> Windows</label>
+          <label><input data-filter="platform" type="checkbox" value="Web"> Web</label>
+          <label><input data-filter="platform" type="checkbox" value="Quest"> Meta Quest</label>
+        </div></div>
+        <div class="filter-group"><div class="filter-title">Status</div><div class="filter-list">
+          <label><input data-filter="status" type="checkbox" value="Disponível"> Disponível</label>
+          <label><input data-filter="status" type="checkbox" value="Demonstração"> Demonstração</label>
+          <label><input data-filter="status" type="checkbox" value="Protótipo"> Protótipo</label>
+        </div></div>
+      </aside>
+
+      <section>
+        <div class="result-meta"><div><strong id="resultCount"></strong> experiências encontradas</div><div id="activeCount"></div></div>
+        <div class="cards" id="cards"></div>
+        <div class="empty" id="empty"><strong>Nenhum projeto encontrado.</strong><br>Ajuste os filtros para continuar.</div>
+      </section>
+    </div>
+  </div>
+</main>
+
+
+<div class="video-modal" id="homeVideoModal" aria-hidden="true">
+  <div class="video-modal-backdrop" data-home-close-video></div>
+
+  <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-label="Vídeo do projeto">
+    <button class="video-modal-close" id="homeCloseVideoModal" aria-label="Fechar vídeo">×</button>
+
+    <div class="video-modal-player">
+      <video id="homeModalVideo" controls playsinline preload="metadata"></video>
+
+      <div class="video-modal-fallback" id="homeModalVideoFallback">
+        <div class="modal-project-icon" id="homeModalProjectIcon">🎬</div>
+        <h2 id="homeModalProjectTitle">Vídeo do projeto</h2>
+        <p>
+          Adicione o arquivo MP4 deste projeto em
+          <strong>assets/videos/</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="container"><div><h4>ImersaLab</h4><p>Realidade Aumentada, Realidade Virtual e Simuladores para ensino e treinamento.</p></div><div><h4>Explorar</h4><a href="#catalogo">Experiências</a></div><div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="contato.html">Contato</a><br><a href="doacao.html">Apoie o projeto</a><br><a href="estatisticas.html">Estatísticas</a></div>
+    <div class="footer-social-column footer-social-inline">
+      <h4 class="footer-social-heading">Mídias sociais:</h4>
+      <div class="social-links" aria-label="Redes sociais do projeto">
+        <a class="social-link" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook do ImersaLab" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4.5A17 17 0 0 0 14.4 4C11.8 4 10 5.6 10 8.6V11H7v4h3v7h4v-7h3.2l.6-4H14V8.8c0-.6.2-.8 1-.8Z"></path></svg><span class="sr-only">Facebook</span>
+        </a>
+        <a class="social-link" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do ImersaLab" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span class="sr-only">Instagram</span>
+        </a>
+        <a class="social-link" data-social="x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X do ImersaLab" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4.1l4.2 5.7L17.8 4H20l-6.2 7.2L20 20h-4.1l-4.5-6.1L6.1 20H4l6.4-7.4z"></path></svg><span class="sr-only">X</span>
+        </a>
+        <a class="social-link" data-social="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube do ImersaLab" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.6 12 5.6 12 5.6s-5 0-6.9.5A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.5 6.9.5 6.9.5s5 0 6.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"></path><path class="social-fill" d="m10 9 5 3-5 3Z"></path></svg><span class="sr-only">YouTube</span>
+        </a>
+        <a class="social-link" data-social="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do ImersaLab" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.2A1.95 1.95 0 1 0 6.9 4.3a1.95 1.95 0 0 0 0 3.9ZM5 9.5h3.7V20H5zm5.8 0h3.6v1.5h.1c.5-.9 1.7-1.8 3.5-1.8 3.8 0 4.5 2.3 4.5 5.4V20h-3.7v-4.7c0-1.1 0-2.6-1.7-2.6s-1.9 1.2-1.9 2.5V20h-3.7z"></path></svg><span class="sr-only">LinkedIn</span>
+        </a>
+        <a class="social-link" data-social="tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok do ImersaLab" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.2 4.2 0 1 1-3.5-4.1v3a1.4 1.4 0 1 0 .7 1.2V2h3.1c.5 2.1 1.8 3.5 3.7 4.2V9c-1.6-.2-2.9-.8-4-1.8"></path></svg><span class="sr-only">TikTok</span>
+        </a>
+      </div>
+    </div>
+  </div></footer>
+<script src="js/projetos.js"></script>
+<script src="js/index.js"></script>
+<script src="js/redes.js"></script>
+<script src="js/visitas.js"></script>
+</body>
+</html>
