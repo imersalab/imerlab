@@ -1,9 +1,81 @@
-// ======================================================
-// IMERSALAB - ESTATÍSTICAS COM VERCEL WEB ANALYTICS
-// Arquivo: api/visitas.js
-// ======================================================
+const BASE_URL = 'https://api.counterapi.dev/v2';
 
-const ANALYTICS_URL = 'https://api.vercel.com/v1/query/web-analytics/visits/count';
+function envConfig() {
+  return {
+    workspace: process.env.COUNTERAPI_WORKSPACE,
+    token: process.env.COUNTERAPI_TOKEN,
+  };
+}
+
+function safeCounterName(name) {
+  return String(name || '').toLowerCase().replace(/[^a-z0-9-_]/g, '-').slice(0, 80);
+}
+
+function extractValue(payload) {
+  if (payload == null) return 0;
+  if (typeof payload === 'number') return payload;
+  if (typeof payload === 'string' && /^\d+$/.test(payload)) return Number(payload);
+
+  const direct = [payload.value, payload.count, payload.total, payload.current];
+  for (const candidate of direct) {
+    const number = Number(candidate);
+    if (Number.isFinite(number)) return number;
+  }
+
+  if (payload.data) {
+    const nested = extractValue(payload.data);
+    if (Number.isFinite(nested)) return nested;
+  }
+
+  if (payload.counter) {
+    const nested = extractValue(payload.counter);
+    if (Number.isFinite(nested)) return nested;
+  }
+
+  return 0;
+}
+
+async function counterRequest(counterName, operation = '') {
+  const { workspace, token } = envConfig();
+  if (!workspace || !token) {
+    const error = new Error('COUNTER_CONFIG_REQUIRED');
+    error.code = 'COUNTER_CONFIG_REQUIRED';
+    throw error;
+  }
+
+  const name = safeCounterName(counterName);
+  const suffix = operation ? `/${operation}` : '';
+  const url = `${BASE_URL}/${encodeURIComponent(workspace)}/${encodeURIComponent(name)}${suffix}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+    cache: 'no-store',
+  });
+
+  if (response.status === 404 && !operation) {
+    return { value: 0, raw: null };
+  }
+
+  let payload = null;
+  try {
+    payload = await response.json();
+  } catch (_) {
+    payload = null;
+  }
+
+  if (!response.ok) {
+    const message = payload?.message || payload?.error || `CounterAPI respondeu ${response.status}`;
+    const error = new Error(message);
+    error.status = response.status;
+    throw error;
+  }
+
+  return { value: extractValue(payload), raw: payload };
+}
 
 function sendJson(res, status, body) {
   res.statusCode = status;
@@ -12,118 +84,64 @@ function sendJson(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-function getConfig() {
-  return {
-    token: process.env.VERCEL_ANALYTICS_TOKEN || process.env.VERCEL_TOKEN || '',
-    projectId: process.env.VERCEL_PROJECT_ID || process.env.VERCEL_ANALYTICS_PROJECT_ID || '',
-    teamId: process.env.VERCEL_TEAM_ID || process.env.VERCEL_ANALYTICS_TEAM_ID || '',
-  };
-}
-
 module.exports = async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
-    return sendJson(res, 405, {
-      ok: false,
-      error: 'Método não permitido. Use GET.'
-    });
+  if (!['GET', 'POST'].includes(req.method)) {
+    res.setHeader('Allow', 'GET, POST');
+    return sendJson(res, 405, { ok: false, error: 'Método não permitido.' });
   }
-
-  const { token, projectId, teamId } = getConfig();
-
-  if (!token || !projectId) {
-    return sendJson(res, 503, {
-      ok: false,
-      setupRequired: true,
-      code: 'VERCEL_ANALYTICS_CONFIG_REQUIRED',
-      error: 'A consulta do Vercel Web Analytics ainda precisa ser configurada.',
-      detail: 'Ative Web Analytics na Vercel, crie um Access Token e salve-o como VERCEL_ANALYTICS_TOKEN. O VERCEL_PROJECT_ID normalmente é fornecido automaticamente pela Vercel.',
-      config: {
-        tokenConfigured: Boolean(token),
-        projectIdConfigured: Boolean(projectId),
-        teamIdConfigured: Boolean(teamId)
-      }
-    });
-  }
-
-  const url = new URL(ANALYTICS_URL);
-  url.searchParams.set('projectId', projectId);
-  if (teamId) url.searchParams.set('teamId', teamId);
 
   try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json'
-      },
-      cache: 'no-store'
-    });
+    if (req.method === 'GET') {
+      const [visitas, unicos, paginas] = await Promise.all([
+        counterRequest('visitas-totais'),
+        counterRequest('visitantes-unicos'),
+        counterRequest('paginas-visualizadas'),
+      ]);
 
-    let payload = null;
-    try {
-      payload = await response.json();
-    } catch (_) {
-      payload = null;
-    }
-
-    if (!response.ok) {
-      const upstreamMessage =
-        payload?.error?.message ||
-        payload?.message ||
-        payload?.error ||
-        `A Vercel respondeu com status ${response.status}.`;
-
-      let detail = typeof upstreamMessage === 'string'
-        ? upstreamMessage
-        : 'Não foi possível consultar o Web Analytics.';
-
-      let teamRequired = false;
-
-      if (response.status === 401) {
-        detail = 'O Access Token da Vercel foi recusado. Gere um token válido e atualize VERCEL_ANALYTICS_TOKEN.';
-      } else if (response.status === 403) {
-        detail = 'O token não tem acesso ao projeto ou ao time. Se o projeto pertence a um time, configure também VERCEL_TEAM_ID.';
-        teamRequired = !teamId;
-      } else if (response.status === 404) {
-        detail = 'Projeto ou dados de Analytics não encontrados. Confirme que o Web Analytics está ativado e que o deployment foi publicado novamente.';
-        teamRequired = !teamId;
-      }
-
-      return sendJson(res, 502, {
-        ok: false,
-        code: 'VERCEL_ANALYTICS_UPSTREAM_ERROR',
-        vercelStatus: response.status,
-        teamRequired,
-        error: 'Não foi possível consultar o Vercel Web Analytics.',
-        detail,
-        config: {
-          tokenConfigured: Boolean(token),
-          projectIdConfigured: Boolean(projectId),
-          teamIdConfigured: Boolean(teamId)
-        }
+      return sendJson(res, 200, {
+        ok: true,
+        visitas: visitas.value,
+        visitantesUnicos: unicos.value,
+        paginasVisualizadas: paginas.value,
+        atualizadoEm: new Date().toISOString(),
       });
     }
 
-    const visitors = Number(payload?.data?.visitors || 0);
-    const pageviews = Number(payload?.data?.pageviews || 0);
-    const pagesPerVisitor = visitors > 0 ? pageviews / visitors : 0;
+    const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+    const novaVisita = Boolean(body.novaVisita);
+    const novoVisitante = Boolean(body.novoVisitante);
+
+    const operations = [counterRequest('paginas-visualizadas', 'up')];
+    if (novaVisita) operations.push(counterRequest('visitas-totais', 'up'));
+    if (novoVisitante) operations.push(counterRequest('visitantes-unicos', 'up'));
+
+    await Promise.all(operations);
+
+    const [visitas, unicos, paginas] = await Promise.all([
+      counterRequest('visitas-totais'),
+      counterRequest('visitantes-unicos'),
+      counterRequest('paginas-visualizadas'),
+    ]);
 
     return sendJson(res, 200, {
       ok: true,
-      source: 'Vercel Web Analytics',
-      visitantes: visitors,
-      paginasVisualizadas: pageviews,
-      paginasPorVisitante: Number(pagesPerVisitor.toFixed(2)),
-      atualizadoEm: new Date().toISOString()
+      visitas: visitas.value,
+      visitantesUnicos: unicos.value,
+      paginasVisualizadas: paginas.value,
     });
   } catch (error) {
-    console.error('[ImersaLab] Erro ao consultar Vercel Web Analytics:', error);
+    if (error.code === 'COUNTER_CONFIG_REQUIRED') {
+      return sendJson(res, 503, {
+        ok: false,
+        setupRequired: true,
+        error: 'Configure COUNTERAPI_WORKSPACE e COUNTERAPI_TOKEN na Vercel para ativar o contador.',
+      });
+    }
+
+    console.error('Erro no contador de visitas:', error);
     return sendJson(res, 500, {
       ok: false,
-      code: 'VERCEL_ANALYTICS_REQUEST_ERROR',
-      error: 'Falha ao consultar as estatísticas da Vercel.',
-      detail: error?.message || 'Erro inesperado.'
+      error: 'Não foi possível registrar ou consultar as visitas agora.',
     });
   }
 };

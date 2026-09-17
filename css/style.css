@@ -735,10 +735,3 @@ footer{background:#0d1739;color:#cbd5ff;padding:34px 0}footer .container{display
 .stats-setup{border-color:#f1c968;background:#fffaf0}
 .stats-setup code{display:block;margin:8px 0;padding:10px 12px;border-radius:9px;background:#101827;color:#dbeafe;overflow:auto}
 @media(max-width:900px){.stats-grid{grid-template-columns:1fr}.stats-info-grid{grid-template-columns:1fr}.stats-hero-row{align-items:flex-start;flex-direction:column}}
-
-
-/* Diagnóstico do contador de acessos */
-.stats-diagnostic{border-left:5px solid #3157d5}
-.stats-diagnostic[hidden]{display:none}
-.stats-diagnostic .btn{margin-top:6px}
-.stats-help-note{font-size:.9rem;color:#667085;line-height:1.55}

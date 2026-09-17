@@ -27,7 +27,7 @@
         <div class="stats-hero-row">
           <div>
             <h1>Estatísticas do ImersaLab</h1>
-            <p>Dados obtidos diretamente do Vercel Web Analytics, sem depender de serviços externos de contador.</p>
+            <p>Acompanhe acessos ao site sem armazenar nome, e-mail ou outros dados pessoais do visitante.</p>
           </div>
           <button class="btn btn-primary" id="refreshStats" type="button">Atualizar dados</button>
         </div>
@@ -39,48 +39,37 @@
       <div class="stats-grid">
         <article class="stats-card">
           <span class="stats-icon">👥</span>
-          <small>VISITANTES</small>
+          <small>VISITAS</small>
           <strong id="statVisitas">—</strong>
-          <p>Quantidade de visitantes registrada pelo Vercel Web Analytics.</p>
+          <p>Uma nova visita é contabilizada após 30 minutos sem acesso neste navegador.</p>
+        </article>
+        <article class="stats-card">
+          <span class="stats-icon">🧭</span>
+          <small>VISITANTES ÚNICOS</small>
+          <strong id="statUnicos">—</strong>
+          <p>Estimativa por navegador/dispositivo. Limpar os dados do navegador pode gerar nova contagem.</p>
         </article>
         <article class="stats-card">
           <span class="stats-icon">📄</span>
           <small>PÁGINAS VISUALIZADAS</small>
           <strong id="statPaginas">—</strong>
-          <p>Total de visualizações das páginas monitoradas no projeto.</p>
-        </article>
-        <article class="stats-card">
-          <span class="stats-icon">📊</span>
-          <small>PÁGINAS POR VISITANTE</small>
-          <strong id="statMedia">—</strong>
-          <p>Média de páginas visualizadas para cada visitante contabilizado.</p>
+          <p>Total de carregamentos das páginas monitoradas do projeto.</p>
         </article>
       </div>
 
       <div class="stats-info-grid">
         <article class="stats-panel">
           <h2>Como a contagem funciona</h2>
-          <p>O ImersaLab usa o Web Analytics da própria Vercel. A Vercel contabiliza visitantes e visualizações de página de forma agregada e sem cookies tradicionais. O identificador anônimo de visitante é renovado diariamente.</p>
-          <p><strong>Fonte:</strong> Vercel Web Analytics</p>
+          <p>O site registra uma visualização de página a cada carregamento. Para evitar que cada clique interno seja tratado como uma nova pessoa, o navegador mantém um identificador local simples e o horário da última visita.</p>
           <p><strong>Última atualização:</strong> <span id="statAtualizado">—</span></p>
         </article>
 
         <article class="stats-panel stats-setup" id="statsSetup" hidden>
           <h2>Ativação necessária</h2>
-          <p>Para exibir os números nesta página:</p>
-          <p><strong>1.</strong> Ative <strong>Analytics → Web Analytics</strong> no projeto da Vercel e faça um novo deploy.</p>
-          <p><strong>2.</strong> Crie um Access Token da Vercel e salve em <strong>Settings → Environment Variables</strong> com o nome:</p>
-          <code>VERCEL_ANALYTICS_TOKEN</code>
-          <p>O ID do projeto é obtido automaticamente por <code>VERCEL_PROJECT_ID</code>. Se o projeto pertencer a um time e a API pedir o escopo do time, adicione também:</p>
-          <code>VERCEL_TEAM_ID</code>
-          <p>Depois salve e faça <strong>Redeploy</strong>. O token fica somente na função serverless e não é enviado ao navegador.</p>
-        </article>
-
-        <article class="stats-panel stats-diagnostic" id="statsDiagnostic" hidden>
-          <h2>Diagnóstico das estatísticas</h2>
-          <p id="statsDiagnosticText">—</p>
-          <p><a class="btn btn-outline" id="apiTestLink" href="/api/visitas" target="_blank" rel="noopener">Testar API de estatísticas</a></p>
-          <p class="stats-help-note">Se o link abrir uma mensagem JSON, ela indicará se falta o token da Vercel, o ID do projeto/time ou se o Web Analytics ainda não foi ativado.</p>
+          <p>O contador já está implementado no projeto. Para começar a registrar acessos, crie duas variáveis de ambiente na Vercel:</p>
+          <code>COUNTERAPI_WORKSPACE</code>
+          <code>COUNTERAPI_TOKEN</code>
+          <p>Depois, faça um novo deploy. O token fica somente no servidor e não é exposto no HTML.</p>
         </article>
       </div>
     </section>

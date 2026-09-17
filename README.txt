@@ -138,42 +138,33 @@ Para apontar para os perfis oficiais, edite apenas o arquivo:
 Substitua as URLs de cada rede pelo endereço do perfil oficial do projeto.
 
 
-
-DIAGNÓSTICO DAS ESTATÍSTICAS
-----------------------------
-Se estatisticas.html mostrar erro, abra no navegador:
-  /api/visitas
-
-Interpretação:
-- 404 ou página HTML: a função não está ativa. Confirme que a pasta api está na raiz publicada.
-- VERCEL_ANALYTICS_CONFIG_REQUIRED: falta o token ou o VERCEL_PROJECT_ID não está disponível.
-- 401 da Vercel: Access Token inválido.
-- 403: o token não tem acesso ao projeto/time; configure VERCEL_TEAM_ID se necessário.
-- 404 retornado pela API da Vercel: ative Web Analytics e faça novo deploy.
-
-IMPORTANTE: Live Server e abrir index.html diretamente não executam a pasta api/.
-
-VERCEL WEB ANALYTICS
-====================
-O projeto agora usa o Web Analytics nativo da Vercel para registrar visitantes e visualizações.
-
-1. Na Vercel, abra o projeto e acesse Analytics > Web Analytics.
-2. Clique em Enable e faça um novo deploy.
-3. Crie um Vercel Access Token.
-4. Em Settings > Environment Variables, crie:
-   VERCEL_ANALYTICS_TOKEN = seu token da Vercel
-5. VERCEL_PROJECT_ID normalmente é fornecido automaticamente pela Vercel.
-6. Se o projeto pertencer a um time e a API exigir o escopo, adicione também:
-   VERCEL_TEAM_ID = team_xxxxxxxxx
-7. Faça Redeploy.
-8. Abra /estatisticas.html.
-
-A página estatisticas.html consulta /api/visitas. Essa função lê os dados diretamente da API oficial do Vercel Web Analytics.
-O token nunca deve ser colocado no HTML ou no JavaScript do navegador.
-
-ARQUIVOS ENVOLVIDOS
+CONTADOR DE ACESSOS
 -------------------
-- js/vercel-analytics.js: envia page views para o Web Analytics da Vercel.
-- api/visitas.js: consulta os totais via API oficial da Vercel.
-- js/estatisticas.js: atualiza os números exibidos na página.
-- estatisticas.html: painel de estatísticas.
+A versão atual inclui um sistema de estatísticas em:
+  estatisticas.html
+
+O sistema acompanha:
+- Visitas: nova visita após 30 minutos sem navegação neste navegador.
+- Visitantes únicos aproximados: um registro por navegador/dispositivo.
+- Páginas visualizadas: cada página monitorada carregada.
+
+ARQUIVOS:
+- api/visitas.js: função serverless da Vercel que registra e consulta os contadores.
+- js/visitas.js: registra os acessos nas páginas públicas.
+- js/estatisticas.js: atualiza o painel de estatísticas.
+- estatisticas.html: painel de controle.
+
+ATIVAÇÃO NA VERCEL:
+1. Crie uma conta no CounterAPI e um workspace.
+2. Gere um token de acesso.
+3. Na Vercel, abra o projeto > Settings > Environment Variables.
+4. Crie:
+   COUNTERAPI_WORKSPACE = nome do seu workspace
+   COUNTERAPI_TOKEN = seu token
+5. Faça um novo deploy do projeto.
+6. Abra /estatisticas.html para conferir os números.
+
+IMPORTANTE:
+O token NÃO deve ser colocado em arquivos HTML ou JavaScript do navegador.
+Ele fica apenas nas variáveis de ambiente da Vercel e é utilizado por api/visitas.js.
+A contagem de visitantes únicos é uma estimativa por navegador/dispositivo, não uma identificação pessoal.
