@@ -20,18 +20,39 @@
     </nav>
   </header>
 
-  <main class="stats-page">
+  <main class="stats-page stats-vercel-page">
     <section class="stats-hero">
       <div class="container">
-        <span class="stats-kicker">CONTROLE DE ACESSOS</span>
+        <span class="stats-kicker">VERCEL WEB ANALYTICS</span>
         <div class="stats-hero-row">
           <div>
             <h1>Estatísticas do ImersaLab</h1>
-            <p>Contagem simples de visitantes e visualizações do ImersaLab, sem tokens, variáveis de ambiente ou configuração adicional na Vercel.</p>
+            <p>Visitantes, visualizações, origem geográfica e evolução diária usando os mesmos dados exibidos no painel da Vercel.</p>
           </div>
           <button class="btn btn-primary" id="refreshStats" type="button">Atualizar dados</button>
         </div>
-        <div id="statsStatus" class="stats-status loading">Carregando…</div>
+
+        <div class="stats-period-toolbar" aria-label="Período das estatísticas">
+          <label>
+            <span>Período</span>
+            <select id="statsPeriodPreset">
+              <option value="7">Últimos 7 dias</option>
+              <option value="14">Últimos 14 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="custom">Personalizado</option>
+            </select>
+          </label>
+          <label>
+            <span>De</span>
+            <input id="statsSince" type="date">
+          </label>
+          <label>
+            <span>Até</span>
+            <input id="statsUntil" type="date">
+          </label>
+        </div>
+
+        <div id="statsStatus" class="stats-status loading">Carregando dados da Vercel…</div>
       </div>
     </section>
 
@@ -40,43 +61,69 @@
         <article class="stats-card">
           <span class="stats-icon">👥</span>
           <small>VISITANTES</small>
-          <strong id="statVisitas">—</strong>
-          <p>Quantidade aproximada de visitantes únicos que acessaram o site.</p>
+          <strong id="statVisitors">—</strong>
+          <p>Visitantes registrados pelo Vercel Web Analytics no período selecionado.</p>
         </article>
         <article class="stats-card">
           <span class="stats-icon">📄</span>
-          <small>PÁGINAS VISUALIZADAS</small>
-          <strong id="statPaginas">—</strong>
-          <p>Total de visualizações das páginas monitoradas no projeto.</p>
+          <small>VISUALIZAÇÕES</small>
+          <strong id="statPageviews">—</strong>
+          <p>Total de páginas visualizadas durante o período.</p>
         </article>
         <article class="stats-card">
           <span class="stats-icon">📊</span>
           <small>PÁGINAS POR VISITANTE</small>
-          <strong id="statMedia">—</strong>
-          <p>Média de páginas visualizadas para cada visitante contabilizado.</p>
+          <strong id="statPagesPerVisitor">—</strong>
+          <p>Média de páginas visualizadas por visitante contabilizado.</p>
         </article>
       </div>
 
-      <div class="stats-info-grid">
-        <article class="stats-panel">
-          <h2>Como a contagem funciona</h2>
-          <p>O site registra uma visualização a cada carregamento das páginas monitoradas. O número de visitantes é calculado de forma agregada para evitar que cada página aberta pela mesma pessoa seja tratada como um novo visitante.</p>
-          <p><strong>Não é necessário configurar token, banco de dados ou variável de ambiente na Vercel.</strong></p>
-          <p><strong>Última atualização:</strong> <span id="statAtualizado">—</span></p>
+      <div class="stats-dashboard-grid">
+        <article class="stats-panel stats-chart-panel">
+          <div class="stats-panel-head">
+            <div>
+              <span class="stats-panel-kicker">EVOLUÇÃO NO PERÍODO</span>
+              <h2>Acessos por dia</h2>
+            </div>
+            <div class="stats-chart-legend" aria-label="Legenda">
+              <span><i class="legend-pageviews"></i> Visualizações</span>
+              <span><i class="legend-visitors"></i> Visitantes</span>
+            </div>
+          </div>
+          <div class="stats-chart-wrap">
+            <svg id="statsChart" class="stats-chart" viewBox="0 0 960 330" role="img" aria-label="Gráfico de acessos por dia"></svg>
+            <div id="statsChartEmpty" class="stats-chart-empty" hidden>Não há dados no período selecionado.</div>
+          </div>
         </article>
 
-        <article class="stats-panel stats-simple-panel">
-          <h2>Contador ativo</h2>
-          <p>Esta versão não usa <strong>COUNTERAPI_WORKSPACE</strong>, <strong>COUNTERAPI_TOKEN</strong>, função <strong>/api/visitas</strong> ou variáveis de ambiente da Vercel.</p>
-          <p>Publique estes arquivos e visite o site normalmente. A contagem começa automaticamente nas páginas monitoradas.</p>
-          <p class="stats-service-note">Serviço de contagem: CounterAPI público, sem chave de API.</p>
+        <article class="stats-panel stats-location-panel">
+          <div class="stats-panel-head">
+            <div>
+              <span class="stats-panel-kicker">LOCALIDADE</span>
+              <h2>Países dos visitantes</h2>
+            </div>
+          </div>
+          <p class="stats-location-note">A Vercel disponibiliza a localização agregada por país; não exibe endereço ou localização precisa do visitante.</p>
+          <div id="statsCountries" class="stats-country-list"></div>
         </article>
       </div>
+
+      <article class="stats-panel stats-source-panel">
+        <div>
+          <span class="stats-panel-kicker">FONTE DOS DADOS</span>
+          <h2>Vercel Web Analytics</h2>
+          <p>Os números desta página vêm da API oficial do Vercel Web Analytics. O token de acesso fica somente na função serverless e nunca é enviado ao navegador.</p>
+        </div>
+        <div class="stats-source-meta">
+          <span>Período exibido: <strong id="statPeriodLabel">—</strong></span>
+          <span>Última atualização: <strong id="statUpdated">—</strong></span>
+        </div>
+      </article>
     </section>
   </main>
 
   <footer><div class="container"><div><h4>ImersaLab</h4><p>Realidade Aumentada, Realidade Virtual e Simuladores para ensino e treinamento.</p></div><div><h4>Controle</h4><a href="estatisticas.html">Estatísticas de acesso</a></div><div><h4>Projeto</h4><a href="sobre.html">Sobre</a><br><a href="equipe.html">Nossa equipe</a><br><a href="contato.html">Contato</a></div></div></footer>
 
-  <script src="js/estatisticas-v2.js?v=2"></script>
+  <script src="js/estatisticas-vercel.js?v=1"></script>
 </body>
 </html>

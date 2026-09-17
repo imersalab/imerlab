@@ -194,3 +194,19 @@ Não requer token, workspace, função serverless, banco de dados ou variável d
 O contador usa o serviço público CounterAPI (counterapi.com).
 Se a página publicada ainda mostrar “Ativação necessária” ou pedir COUNTERAPI_TOKEN, a Vercel está servindo uma versão antiga do projeto.
 Nesse caso, publique novamente esta pasta e faça Ctrl+F5 no navegador.
+
+ESTATÍSTICAS DE ACESSO - VERSÃO FINAL
+- api/estatisticas.js: função da Vercel que registra e consulta os contadores.
+- js/contador-acessos-v3.js: registra acessos nas páginas do site.
+- js/estatisticas-v3.js: exibe os totais em estatisticas.html.
+- Não é necessário criar token nem variável de ambiente.
+- A pasta api deve permanecer na mesma raiz de index.html quando o projeto for publicado na Vercel.
+- Após publicar, visite index.html e depois abra estatisticas.html para conferir a contagem.
+
+ESTATÍSTICAS COM VERCEL WEB ANALYTICS
+- A página estatisticas.html consulta /api/estatisticas.
+- /api/estatisticas usa a API oficial do Vercel Web Analytics.
+- Cadastre apenas VERCEL_ANALYTICS_TOKEN nas Environment Variables da Vercel.
+- O valor deve ser um Vercel Access Token; não use uma AI Gateway/API key com prefixo vck_.
+- O gráfico permite 7, 14, 30 dias ou intervalo personalizado.
+- A seção Localidade apresenta países, porque o Web Analytics fornece localização agregada por país.
